@@ -1,33 +1,37 @@
 # Decision-Based AI Models
 
-Beş kurumsal ajana yönlendirme yapan farklı router yaklaşımlarının karşılaştırması:
+Comparison of different routing approaches for directing requests to five enterprise agents:
 
 - Von
 - Laya
 - JEV
 - SetFit
 
-Benchmark sonuçları için [results.md](results.md) dosyasına bakabilirsiniz.
+See [results.md](results.md) for the benchmark results.
 
-## Güvenlik
+## Benchmark language
 
-API anahtarları ve yerel yapılandırma dosyaları repoya eklenmemelidir. JEV testi için:
+The primary benchmark prompts were written in Turkish to evaluate multilingual and Turkish-language routing performance. Von also includes a separate English evaluation because its tested configuration is optimized for English; therefore, its English results should not be treated as directly equivalent to the Turkish results from the other routers.
+
+## Security
+
+API keys and local configuration files must not be committed to the repository. To run the JEV test:
 
 ```powershell
 Copy-Item jev-test\.env.example jev-test\.env
 ```
 
-Ardından `jev-test\.env` dosyasındaki `JEV_API_KEY` değerini yerel anahtarınızla doldurun. `.env` dosyaları `.gitignore` tarafından dışlanır.
+Then set `JEV_API_KEY` in `jev-test\.env` to your local API key. `.env` files are excluded by `.gitignore`.
 
-> Daha önce herhangi bir API anahtarı paylaşılmış veya yanlışlıkla commit edilmişse anahtarı sağlayıcı panelinden iptal edip yenisini üretin. Git geçmişinden silmek, sızmış anahtarı geçersiz kılmaz.
+> If an API key has previously been shared or accidentally committed, revoke it in the provider dashboard and generate a new one. Removing it from Git history does not invalidate a leaked key.
 
-## Proje yapısı
+## Project structure
 
-| Dizin | İçerik |
+| Directory | Contents |
 |---|---|
-| `jev-test` | JEV API tabanlı agent ve LLM router testleri |
-| `laya-test` | Laya multilingual router testi |
-| `setfit-test` | SetFit fine-tuning ve görülmemiş Türkçe prompt testi |
-| `von-test` | Von ve SentenceTransformer tabanlı router testleri |
+| `jev-test` | JEV API-based agent and LLM router tests |
+| `laya-test` | Laya multilingual router test |
+| `setfit-test` | SetFit fine-tuning and unseen Turkish prompt tests |
+| `von-test` | Von and SentenceTransformer-based router tests |
 
-Yerel `.venv`, model çıktıları ve training checkpoint'leri GitHub'a eklenmez. Bunlar yeniden üretilebilir yerel artefaktlardır.
+Local `.venv` directories, model outputs, and training checkpoints are not included in GitHub. These are reproducible local artifacts.
